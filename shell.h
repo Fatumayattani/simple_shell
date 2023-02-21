@@ -33,7 +33,9 @@
 
 #define HIST_FILE	".simple_shell_history"
 #define HIST_MAX	4096
+
 extern char **environ;
+
 
 /**
  * struct liststr - singly linked list
@@ -49,10 +51,11 @@ typedef struct liststr
 } list_t;
 
 /**
- * struct passinfo - contains pseudo-arguments
- * @arg: a string generated containing arguments
- * @argv: an array of strings generated from arg
- * @path: a string path for current command
+ * struct passinfo - contains pseudo-arguements to pass into a function,
+ * allowing uniform prototype for function pointer struct
+ * @arg: a string generated from getline containing arguements
+ * @argv:an array of strings generated from arg
+ * @path: a string path for the current command
  * @argc: the argument count
  * @line_count: the error count
  * @err_num: the error code for exit()s
@@ -93,7 +96,8 @@ typedef struct passinfo
 } info_t;
 
 #define INFO_INIT \
-{NULL, 0, 0, 0, 0, NULL, 0, 0, NULL, \0, 0, 0}
+{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
+		0, 0, 0}
 
 /**
  * struct builtin - contains a builtin string and related function
@@ -105,6 +109,7 @@ typedef struct builtin
 	char *type;
 	int (*func)(info_t *);
 } builtin_table;
+
 
 /* toem_shloop.c */
 int hsh(info_t *, char **);
